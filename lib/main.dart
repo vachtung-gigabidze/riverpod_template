@@ -1,24 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:http/http.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-part 'main.g.dart';
-
-@Riverpod(keepAlive: true)
-Future<SharedPreferences> prefs(PrefsRef ref) =>
-    SharedPreferences.getInstance();
-
-@riverpod
-Future<void> delayed(DelayedRef ref, Duration duration) async {
-  await Future<void>.delayed(duration);
-}
-
-@riverpod
-Future<Response> goGetter(GoGetterRef ref, Uri uri) async {
-  return get(uri);
-}
+import 'package:riverpod_template/providers/providers.dart';
 
 void main() {
   runApp(const ProviderScope(child: WarmUp()));
