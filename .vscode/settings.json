@@ -1,5 +1,22 @@
 {
   "cSpell.words": [
-    "riverpod"
-  ]
+    "ARGB",
+    "cupertino",
+    "dotenv",
+    "fpdart",
+    "LTRB",
+    "mecamineft",
+    "Noto",
+    "prefs",
+    "riverpod",
+    "sublist",
+    "todos"
+  ],
+  "cSpell.language": "en,ru",
+
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "editor.formatOnSave": true
 }

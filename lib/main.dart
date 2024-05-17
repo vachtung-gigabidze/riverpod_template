@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_template/providers/providers.dart';
+import 'package:riverpod_template/src/providers/app_form_provider.dart';
+import 'package:riverpod_template/src/providers/providers.dart';
+import 'package:riverpod_template/src/screens/app_list_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: WarmUp()));
@@ -21,15 +23,26 @@ class MyApp extends ConsumerWidget {
     final prefs = ref.watch(prefsProvider).requireValue;
 
     return MaterialApp(
-      home: Scaffold(
+      title: 'Riverpod',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
+      ),
+      home: /*Scaffold(
           body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('$prefs'),
-          ],
+            Text('$prefs'),*/
+          Consumer(builder: (context, ref, _) {
+        ref.exists(appFormProvider);
+
+        return const AppListScreen();
+      }),
+      /* ],
         ),
-      )),
+      )),*/
     );
   }
 }
@@ -44,7 +57,7 @@ class _WarmUpState extends ConsumerState<WarmUp> {
     }
     final providers = <ProviderListenable<AsyncValue<Object?>>>[
       prefsProvider,
-      delayedProvider(const Duration(seconds: 3)),
+      delayedProvider(const Duration(seconds: 1)),
       // goGetterProvider(Uri.parse('https://flutter.dev')),
     ];
 
@@ -58,8 +71,10 @@ class _WarmUpState extends ConsumerState<WarmUp> {
       Future(() => setState(() => warmedUp = true));
     }
 
-    return const FittedBox(
-      child: CircularProgressIndicator.adaptive(),
+    return const MaterialApp(
+      home: Scaffold(
+        body: Center(child: CircularProgressIndicator.adaptive()),
+      ),
     );
   }
 }
