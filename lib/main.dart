@@ -1,11 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_template/src/providers/app_form_provider.dart';
 import 'package:riverpod_template/src/providers/providers.dart';
-import 'package:riverpod_template/src/screens/app_list_screen.dart';
+import 'package:riverpod_template/src/screens/app_login_screen.dart';
+
+// void main() {
+//   runApp(const ProviderScope(child: WarmUp()));
+// }
+final showPassProvider = StateProvider<bool>((ref) => true);
 
 void main() {
-  runApp(const ProviderScope(child: WarmUp()));
+  runApp(
+    const ProviderScope(child: MyApp()),
+  );
+}
+
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bool showPassState = ref.watch(showPassProvider);
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.cyan,
+      ),
+      debugShowCheckedModeBanner: false,
+      home: const LoginScreen(),
+    );
+  }
 }
 
 class WarmUp extends ConsumerStatefulWidget {
@@ -15,37 +37,37 @@ class WarmUp extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _WarmUpState();
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+// class MyApp extends ConsumerWidget {
+//   const MyApp({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final prefs = ref.watch(prefsProvider).requireValue;
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     final prefs = ref.watch(prefsProvider).requireValue;
 
-    return MaterialApp(
-      title: 'Riverpod',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: /*Scaffold(
-          body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('$prefs'),*/
-          Consumer(builder: (context, ref, _) {
-        ref.exists(appFormProvider);
+//     return MaterialApp(
+//       title: 'Riverpod',
+//       debugShowCheckedModeBanner: false,
+//       theme: ThemeData(
+//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+//         useMaterial3: true,
+//       ),
+//       home: /*Scaffold(
+//           body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             Text('$prefs'),*/
+//           Consumer(builder: (context, ref, _) {
+//         ref.exists(appFormProvider);
 
-        return const AppListScreen();
-      }),
-      /* ],
-        ),
-      )),*/
-    );
-  }
-}
+//         return const AppListScreen();
+//       }),
+//       /* ],
+//         ),
+//       )),*/
+//     );
+//   }
+// }
 
 class _WarmUpState extends ConsumerState<WarmUp> {
   bool warmedUp = false;
