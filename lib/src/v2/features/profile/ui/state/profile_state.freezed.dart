@@ -39,6 +39,8 @@ abstract class $ProfileStateCopyWith<$Res> {
       _$ProfileStateCopyWithImpl<$Res, ProfileState>;
   @useResult
   $Res call({Profile? profile});
+
+  $ProfileCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -65,6 +67,20 @@ class _$ProfileStateCopyWithImpl<$Res, $Val extends ProfileState>
               as Profile?,
     ) as $Val);
   }
+
+  /// Create a copy of ProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ProfileCopyWith<$Res>? get profile {
+    if (_value.profile == null) {
+      return null;
+    }
+
+    return $ProfileCopyWith<$Res>(_value.profile!, (value) {
+      return _then(_value.copyWith(profile: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -76,6 +92,9 @@ abstract class _$$ProfileStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({Profile? profile});
+
+  @override
+  $ProfileCopyWith<$Res>? get profile;
 }
 
 /// @nodoc
@@ -123,13 +142,12 @@ class _$ProfileStateImpl implements _ProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileStateImpl &&
-            const DeepCollectionEquality().equals(other.profile, profile));
+            (identical(other.profile, profile) || other.profile == profile));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(profile));
+  int get hashCode => Object.hash(runtimeType, profile);
 
   /// Create a copy of ProfileState
   /// with the given fields replaced by the non-null parameter values.

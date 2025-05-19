@@ -52,8 +52,6 @@ class User {
     this.isAnonymous = false,
   });
 
-  /// Returns a `User` object from a map of json
-  /// returns `null` if there is no `id` present
   static User? fromJson(Map<String, dynamic> json) {
     if (json['id'] == null) {
       return null;

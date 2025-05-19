@@ -165,8 +165,8 @@ class _$AuthenticationStateImpl implements _AuthenticationState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthenticationStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other.authResponse, authResponse) &&
+            (identical(other.authResponse, authResponse) ||
+                other.authResponse == authResponse) &&
             (identical(other.isRegisterSuccessfully, isRegisterSuccessfully) ||
                 other.isRegisterSuccessfully == isRegisterSuccessfully) &&
             (identical(other.isSignInSuccessfully, isSignInSuccessfully) ||
@@ -176,10 +176,7 @@ class _$AuthenticationStateImpl implements _AuthenticationState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(authResponse),
-      isRegisterSuccessfully,
-      isSignInSuccessfully);
+      runtimeType, authResponse, isRegisterSuccessfully, isSignInSuccessfully);
 
   /// Create a copy of AuthenticationState
   /// with the given fields replaced by the non-null parameter values.

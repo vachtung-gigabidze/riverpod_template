@@ -9,10 +9,10 @@ class AuthResponse {
     User? user,
   }) : user = user ?? session?.user;
 
-  // /// Instanciates an `AuthResponse` object from json response.
-  // AuthResponse.fromJson(Map<String, dynamic> json)
-  //     : session = Session.fromJson(json),
-  //       user = User.fromJson(json) ?? Session.fromJson(json)?.user;
+  /// Instanciates an `AuthResponse` object from json response.
+  AuthResponse.fromJson(Map<String, dynamic> json)
+      : session = Session.fromJson(json),
+        user = User.fromJson(json) ?? Session.fromJson(json)?.user;
 }
 
 class Session {
@@ -20,8 +20,6 @@ class Session {
   final String? providerRefreshToken;
   final String accessToken;
 
-  /// The number of seconds until the token expires (since it was issued).
-  /// Returned when a login is confirmed.
   final int? expiresIn;
 
   final String? refreshToken;
@@ -37,6 +35,34 @@ class Session {
     this.providerRefreshToken,
     required this.user,
   });
+
+  static Session? fromJson(Map<String, dynamic> json) {
+    if (json['access_token'] == null) {
+      return null;
+    }
+    return Session(
+      accessToken: json['access_token'] as String,
+      expiresIn: json['expires_in'] as int?,
+      refreshToken: json['refresh_token'] as String?,
+      tokenType: json['token_type'] as String,
+      providerToken: json['provider_token'] as String?,
+      providerRefreshToken: json['provider_refresh_token'] as String?,
+      user: User.fromJson(json['user'] as Map<String, dynamic>)!,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'access_token': accessToken,
+      'expires_in': expiresIn,
+      // 'expires_at': expiresAt,
+      'refresh_token': refreshToken,
+      'token_type': tokenType,
+      'provider_token': providerToken,
+      'provider_refresh_token': providerRefreshToken,
+      'user': user.toJson(),
+    };
+  }
 }
 
 class AuthException implements Exception {
