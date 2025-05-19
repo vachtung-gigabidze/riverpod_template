@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_template/src/providers/providers.dart';
-import 'package:riverpod_template/src/screens/app_login_screen.dart';
+import 'package:riverpod_template/src/v1/providers/providers.dart';
+import 'package:riverpod_template/src/v1/screens/app_login_screen.dart';
 
 // void main() {
 //   runApp(const ProviderScope(child: WarmUp()));
