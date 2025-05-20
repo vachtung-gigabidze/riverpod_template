@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
-// import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '/src/v2/constants/constants.dart';
 import '/src/v2/constants/languages.dart';

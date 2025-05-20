@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
-// import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '/src/v2/constants/assets.dart';
 import '/src/v2/constants/constants.dart';
@@ -42,19 +42,19 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
     _emailController = TextEditingController();
     _emailController.addListener(_validateEmail);
 
-    // _authSubscription = supabase.auth.onAuthStateChange.listen((data) {
-    //   final AuthChangeEvent event = data.event;
-    //   final Session? session = data.session;
-    //   debugPrint(
-    //       '${Constants.tag} [WelcomeScreen.initState] Auth change: $event, session: $session');
+    _authSubscription = supabase.auth.onAuthStateChange.listen((data) {
+      final AuthChangeEvent event = data.event;
+      final Session? session = data.session;
+      debugPrint(
+          '${Constants.tag} [WelcomeScreen.initState] Auth change: $event, session: $session');
 
-    //   if (event == AuthChangeEvent.signedIn && session != null) {
-    //     ref
-    //         .read(profileViewModelProvider.notifier)
-    //         .updateProfile(email: session.user.email ?? '');
-    //     context.go(Routes.home);
-    //   }
-    // });
+      if (event == AuthChangeEvent.signedIn && session != null) {
+        ref
+            .read(profileViewModelProvider.notifier)
+            .updateProfile(email: session.user.email ?? '');
+        context.go(Routes.home);
+      }
+    });
   }
 
   @override
@@ -161,8 +161,8 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
               const SizedBox(height: 4),
               const HorizontalDivider(),
               const SizedBox(height: 16),
-              const SocialSignIn(),
-              const SizedBox(height: 16),
+              // const SocialSignIn(),
+              // const SizedBox(height: 16),
               const SignInAgreement(),
               const SizedBox(height: 32),
             ],

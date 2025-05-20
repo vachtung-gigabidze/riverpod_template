@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
-// import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 part 'authentication_state.freezed.dart';
 

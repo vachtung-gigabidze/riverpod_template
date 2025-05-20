@@ -1,102 +1,210 @@
+// import 'dart:io';
+
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_template/src/v1/providers/providers.dart';
-import 'package:riverpod_template/src/v1/screens/app_login_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:purchases_flutter/purchases_flutter.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-// void main() {
-//   runApp(const ProviderScope(child: WarmUp()));
-// }
-final showPassProvider = StateProvider<bool>((ref) => true);
+import 'src/v2/constants/constants.dart';
+import 'src/v2/environment/env.dart';
+import 'src/v2/extensions/build_context_extension.dart';
+import 'src/v2/features/common/ui/providers/app_theme_mode_provider.dart';
+import 'src/v2/features/common/ui/widgets/offline_container.dart';
+import 'src/v2/routing/router.dart';
+import 'src/v2/utils/provider_observer.dart';
 
-void main() {
+Future<void> initPlatformState() async {
+  try {
+    // await Purchases.setLogLevel(LogLevel.debug);
+
+    // final configuration = PurchasesConfiguration(
+    //   Platform.isIOS ? Env.revenueCatAppStore : Env.revenueCatPlayStore,
+    // );
+    // await Purchases.configure(configuration);
+  } on PlatformException catch (e) {
+    debugPrint('${Constants.tag} [initPlatformState] Error: ${e.message}');
+  }
+}
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// Firebase
+  // await Firebase.initializeApp(
+  //     // options: DefaultFirebaseOptions.currentPlatform,
+  //     );
+  // await FirebaseAnalytics.instance.logAppOpen();
+  // FlutterError.onError = (errorDetails) {
+  //   FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
+  // };
+  // PlatformDispatcher.instance.onError = (error, stack) {
+  //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+  //   return true;
+  // };
+
+  /// Supabase
+  await Supabase.initialize(
+    url: Env.supabaseUrl,
+    anonKey: Env.supabaseAnonKey,
+  );
+
+  /// Mobile ads
+  // MobileAds.instance.initialize();
+
+  /// RevenueCat
+  // await initPlatformState();
+
+  /// Localization
+  await EasyLocalization.ensureInitialized();
+
+  /// Google Font
+  LicenseRegistry.addLicense(() async* {
+    final license = await rootBundle.loadString('google_fonts/OFL.txt');
+    yield LicenseEntryWithLineBreaks(['google_fonts'], license);
+  });
+
   runApp(
-    const ProviderScope(child: MyApp()),
+    ProviderScope(
+      observers: [AppObserver()],
+      child: EasyLocalization(
+        supportedLocales: const [Locale('en'), Locale('vi')],
+        path: 'assets/translations',
+        fallbackLocale: const Locale('en'),
+        useOnlyLangCode: true,
+        child: const MainApp(),
+      ),
+    ),
   );
 }
 
-class MyApp extends ConsumerWidget {
-  const MyApp({super.key});
+final supabase = Supabase.instance.client;
+
+class MainApp extends ConsumerWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool showPassState = ref.watch(showPassProvider);
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.cyan,
-      ),
+    final themeMode = ref.watch(appThemeModeProvider);
+
+    return MaterialApp.router(
+      theme: context.lightTheme,
+      darkTheme: context.darkTheme,
+      themeMode: themeMode.value,
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
-      home: const LoginScreen(),
+      builder: (context, child) {
+        return OfflineContainer(child: child);
+      },
     );
   }
 }
 
-class WarmUp extends ConsumerStatefulWidget {
-  const WarmUp({super.key});
+// import 'package:flutter/material.dart';
+// import 'package:hooks_riverpod/hooks_riverpod.dart';
+// import 'package:riverpod_template/src/v1/providers/providers.dart';
+// import 'package:riverpod_template/src/v1/screens/app_login_screen.dart';
 
-  @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _WarmUpState();
-}
+// // void main() {
+// //   runApp(const ProviderScope(child: WarmUp()));
+// // }
+// final showPassProvider = StateProvider<bool>((ref) => true);
+
+// void main() {
+//   runApp(
+//     const ProviderScope(child: MyApp()),
+//   );
+// }
 
 // class MyApp extends ConsumerWidget {
 //   const MyApp({super.key});
 
 //   @override
 //   Widget build(BuildContext context, WidgetRef ref) {
-//     final prefs = ref.watch(prefsProvider).requireValue;
-
+//     final bool showPassState = ref.watch(showPassProvider);
 //     return MaterialApp(
-//       title: 'Riverpod',
-//       debugShowCheckedModeBanner: false,
 //       theme: ThemeData(
-//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-//         useMaterial3: true,
+//         primarySwatch: Colors.cyan,
 //       ),
-//       home: /*Scaffold(
-//           body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text('$prefs'),*/
-//           Consumer(builder: (context, ref, _) {
-//         ref.exists(appFormProvider);
-
-//         return const AppListScreen();
-//       }),
-//       /* ],
-//         ),
-//       )),*/
+//       debugShowCheckedModeBanner: false,
+//       home: const LoginScreen(),
 //     );
 //   }
 // }
 
-class _WarmUpState extends ConsumerState<WarmUp> {
-  bool warmedUp = false;
+// class WarmUp extends ConsumerStatefulWidget {
+//   const WarmUp({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    if (warmedUp) {
-      return const MyApp();
-    }
-    final providers = <ProviderListenable<AsyncValue<Object?>>>[
-      prefsProvider,
-      delayedProvider(const Duration(seconds: 1)),
-      // goGetterProvider(Uri.parse('https://flutter.dev')),
-    ];
+//   @override
+//   ConsumerState<ConsumerStatefulWidget> createState() => _WarmUpState();
+// }
 
-    final states = providers.map(ref.watch).toList();
-    for (final state in states) {
-      if (state is AsyncError) {
-        Error.throwWithStackTrace(state.error, state.stackTrace);
-      }
-    }
-    if (states.every((state) => state is AsyncData)) {
-      Future(() => setState(() => warmedUp = true));
-    }
+// // class MyApp extends ConsumerWidget {
+// //   const MyApp({super.key});
 
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(child: CircularProgressIndicator.adaptive()),
-      ),
-    );
-  }
-}
+// //   @override
+// //   Widget build(BuildContext context, WidgetRef ref) {
+// //     final prefs = ref.watch(prefsProvider).requireValue;
+
+// //     return MaterialApp(
+// //       title: 'Riverpod',
+// //       debugShowCheckedModeBanner: false,
+// //       theme: ThemeData(
+// //         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+// //         useMaterial3: true,
+// //       ),
+// //       home: /*Scaffold(
+// //           body: Center(
+// //         child: Column(
+// //           mainAxisAlignment: MainAxisAlignment.center,
+// //           children: [
+// //             Text('$prefs'),*/
+// //           Consumer(builder: (context, ref, _) {
+// //         ref.exists(appFormProvider);
+
+// //         return const AppListScreen();
+// //       }),
+// //       /* ],
+// //         ),
+// //       )),*/
+// //     );
+// //   }
+// // }
+
+// class _WarmUpState extends ConsumerState<WarmUp> {
+//   bool warmedUp = false;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     if (warmedUp) {
+//       return const MyApp();
+//     }
+//     final providers = <ProviderListenable<AsyncValue<Object?>>>[
+//       prefsProvider,
+//       delayedProvider(const Duration(seconds: 1)),
+//       // goGetterProvider(Uri.parse('https://flutter.dev')),
+//     ];
+
+//     final states = providers.map(ref.watch).toList();
+//     for (final state in states) {
+//       if (state is AsyncError) {
+//         Error.throwWithStackTrace(state.error, state.stackTrace);
+//       }
+//     }
+//     if (states.every((state) => state is AsyncData)) {
+//       Future(() => setState(() => warmedUp = true));
+//     }
+
+//     return const MaterialApp(
+//       home: Scaffold(
+//         body: Center(child: CircularProgressIndicator.adaptive()),
+//       ),
+//     );
+//   }
+// }

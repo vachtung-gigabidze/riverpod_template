@@ -1,17 +1,16 @@
-import 'dart:convert';
+// import 'dart:convert';
 
-import 'package:crypto/crypto.dart';
+// import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-// import 'package:purchases_flutter/purchases_flutter.dart';
+import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
-import 'package:riverpod_template/src/v2/features/authentication/models/user.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-// import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '/src/v2/constants/constants.dart';
 import '/src/v2/constants/languages.dart';
@@ -125,48 +124,48 @@ class AuthenticationRepository {
     }
   }
 
-  Future<AuthResponse> signInWithApple() async {
-    // TODO: fake data
-    return AuthResponse(
-      user: User(
-        id: '',
-        appMetadata: {},
-        userMetadata: {},
-        aud: '',
-        createdAt: '',
-        email: 'henry@apple.com',
-      ),
-    );
+  // Future<AuthResponse> signInWithApple() async {
+  //   // TODO: fake data
+  //   return AuthResponse(
+  //     user: User(
+  //       id: '',
+  //       appMetadata: {},
+  //       userMetadata: {},
+  //       aud: '',
+  //       createdAt: '',
+  //       email: 'henry@apple.com',
+  //     ),
+  //   );
 
-    try {
-      final rawNonce = supabase.auth.generateRawNonce();
-      final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
+  //   try {
+  //     final rawNonce = supabase.auth.generateRawNonce();
+  //     final hashedNonce = sha256.convert(utf8.encode(rawNonce)).toString();
 
-      final credential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        nonce: hashedNonce,
-      );
+  //     final credential = await SignInWithApple.getAppleIDCredential(
+  //       scopes: [
+  //         AppleIDAuthorizationScopes.email,
+  //         AppleIDAuthorizationScopes.fullName,
+  //       ],
+  //       nonce: hashedNonce,
+  //     );
 
-      final idToken = credential.identityToken;
-      if (idToken == null) {
-        throw Exception('id_token_not_found'.tr());
-      }
+  //     final idToken = credential.identityToken;
+  //     if (idToken == null) {
+  //       throw Exception('id_token_not_found'.tr());
+  //     }
 
-      final result = await supabase.auth.signInWithIdToken(
-        provider: OAuthProvider.apple,
-        idToken: idToken,
-        nonce: rawNonce,
-      );
-      return result;
-    } on AuthException catch (error) {
-      throw Exception(error.message);
-    } catch (error) {
-      throw Exception(Languages.unexpectedErrorOccurred);
-    }
-  }
+  //     final result = await supabase.auth.signInWithIdToken(
+  //       provider: OAuthProvider.apple,
+  //       idToken: idToken,
+  //       nonce: rawNonce,
+  //     );
+  //     return result;
+  //   } on AuthException catch (error) {
+  //     throw Exception(error.message);
+  //   } catch (error) {
+  //     throw Exception(Languages.unexpectedErrorOccurred);
+  //   }
+  // }
 
   Future<void> signOut() async {
     // TODO: fake data

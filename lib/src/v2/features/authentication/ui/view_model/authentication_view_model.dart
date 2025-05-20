@@ -1,8 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
-// import 'package:supabase_flutter/supabase_flutter.dart';
+// import 'package:riverpod_template/src/v2/features/authentication/models/auth_response.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '/src/v2/constants/constants.dart';
 import '/src/v2/extensions/string_extension.dart';
@@ -57,12 +57,12 @@ class AuthenticationViewModel extends _$AuthenticationViewModel {
     handleResult(result);
   }
 
-  Future<void> signInWithApple() async {
-    state = const AsyncValue.loading();
-    final authRepo = ref.read(authenticationRepositoryProvider);
-    final result = await AsyncValue.guard(authRepo.signInWithApple);
-    handleResult(result);
-  }
+  // Future<void> signInWithApple() async {
+  //   state = const AsyncValue.loading();
+  //   final authRepo = ref.read(authenticationRepositoryProvider);
+  //   final result = await AsyncValue.guard(authRepo.signInWithApple);
+  //   handleResult(result);
+  // }
 
   Future<void> signOut() async {
     state = const AsyncValue.loading();

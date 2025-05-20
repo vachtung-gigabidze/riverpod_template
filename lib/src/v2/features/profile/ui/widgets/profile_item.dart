@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
-import '/extensions/build_context_extension.dart';
-import '/theme/app_theme.dart';
+import '/src/v2/extensions/build_context_extension.dart';
+import '/src/v2/theme/app_theme.dart';
 import '../../../common/ui/widgets/material_ink_well.dart';
 import 'common_rounded_item.dart';
 

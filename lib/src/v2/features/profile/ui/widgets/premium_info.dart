@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/constants/languages.dart';
+import '/src/v2/constants/languages.dart';
 import '../../../../extensions/date_time_extension.dart';
 import '../../../../theme/app_colors.dart';
 import '../../../../theme/app_theme.dart';

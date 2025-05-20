@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riverpod_template/main.dart';
+// import 'package:riverpod_template/main.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final showPassProvider = StateProvider<bool>((ref) => true);
     final bool showPassState = ref.watch(showPassProvider);
     return GestureDetector(
       onTap: FocusManager.instance.primaryFocus?.unfocus,

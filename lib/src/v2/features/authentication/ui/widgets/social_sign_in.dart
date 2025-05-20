@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
-import 'sign_in_with_apple.dart';
+// import 'sign_in_with_apple.dart';
 import 'sign_in_with_google.dart';
 
 class SocialSignIn extends StatelessWidget {
@@ -10,17 +10,17 @@ class SocialSignIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isIOS = Platform.isIOS;
+    // final isIOS = Platform.isIOS;
     return Row(
       children: [
         Expanded(
           child: SignInWithGoogle(),
         ),
-        if (isIOS) const SizedBox(width: 16),
-        if (isIOS)
-          Expanded(
-            child: SignInWithApple(),
-          ),
+        // if (isIOS) const SizedBox(width: 16),
+        // if (isIOS)
+        //   Expanded(
+        //     child: SignInWithApple(),
+        //   ),
       ],
     );
   }
