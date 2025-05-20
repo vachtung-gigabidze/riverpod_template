@@ -1,31 +1,31 @@
-import 'dart:io';
+// import 'dart:io';
 
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:easy_localization/easy_localization.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
 
-import '/src/v2/constants/assets.dart';
-import '/src/v2/features/authentication/ui/view_model/authentication_view_model.dart';
-import '/src/v2/features/common/ui/widgets/secondary_button.dart';
+// import '/src/v2/constants/assets.dart';
+// import '/src/v2/features/authentication/ui/view_model/authentication_view_model.dart';
+// import '/src/v2/features/common/ui/widgets/secondary_button.dart';
 
-class SignInWithGoogle extends ConsumerWidget {
-  const SignInWithGoogle({super.key});
+// class SignInWithGoogle extends ConsumerWidget {
+//   const SignInWithGoogle({super.key});
 
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return SecondaryButton(
-      icon: SizedBox(
-        width: 32,
-        height: 32,
-        child: SvgPicture.asset(
-          Assets.googleLogo,
-          fit: BoxFit.contain,
-        ),
-      ),
-      text: Platform.isIOS ? 'google'.tr() : 'sign_in_with_google'.tr(),
-      onPressed: () =>
-          ref.read(authenticationViewModelProvider.notifier).signInWithGoogle(),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context, WidgetRef ref) {
+//     return SecondaryButton(
+//       icon: SizedBox(
+//         width: 32,
+//         height: 32,
+//         child: SvgPicture.asset(
+//           Assets.googleLogo,
+//           fit: BoxFit.contain,
+//         ),
+//       ),
+//       text: Platform.isIOS ? 'google'.tr() : 'sign_in_with_google'.tr(),
+//       onPressed: () =>
+//           ref.read(authenticationViewModelProvider.notifier).signInWithGoogle(),
+//     );
+//   }
+// }

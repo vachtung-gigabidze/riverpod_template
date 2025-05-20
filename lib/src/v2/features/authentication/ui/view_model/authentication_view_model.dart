@@ -33,6 +33,19 @@ class AuthenticationViewModel extends _$AuthenticationViewModel {
     state = const AsyncData(AuthenticationState());
   }
 
+  Future<void> signInWithOtp(String email) async {
+    state = const AsyncValue.loading();
+    final authRepo = ref.read(authenticationRepositoryProvider);
+    final result = await AsyncValue.guard(() => authRepo.signInWithOtp(email));
+
+    if (result is AsyncError) {
+      state = AsyncError(result.error.toString(), StackTrace.current);
+      return;
+    }
+
+    state = const AsyncData(AuthenticationState());
+  }
+
   Future<void> verifyOtp({
     required String email,
     required String token,
@@ -50,12 +63,12 @@ class AuthenticationViewModel extends _$AuthenticationViewModel {
     handleResult(result);
   }
 
-  Future<void> signInWithGoogle() async {
-    state = const AsyncValue.loading();
-    final authRepo = ref.read(authenticationRepositoryProvider);
-    final result = await AsyncValue.guard(authRepo.signInWithGoogle);
-    handleResult(result);
-  }
+  // Future<void> signInWithGoogle() async {
+  //   state = const AsyncValue.loading();
+  //   final authRepo = ref.read(authenticationRepositoryProvider);
+  //   final result = await AsyncValue.guard(authRepo.signInWithGoogle);
+  //   handleResult(result);
+  // }
 
   // Future<void> signInWithApple() async {
   //   state = const AsyncValue.loading();

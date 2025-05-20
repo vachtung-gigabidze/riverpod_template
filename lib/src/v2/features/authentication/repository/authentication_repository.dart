@@ -2,6 +2,7 @@
 
 // import 'package:crypto/crypto.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -29,12 +30,28 @@ class AuthenticationRepository {
 
   Future<void> signInWithMagicLink(String email) async {
     // TODO: fake data
-    return;
+    //return;
 
     try {
       await supabase.auth.signInWithOtp(
         email: email,
         emailRedirectTo: Constants.supabaseLoginCallback,
+      );
+    } on AuthException catch (error) {
+      throw Exception(error.message);
+    } catch (error) {
+      throw Exception(Languages.unexpectedErrorOccurred);
+    }
+  }
+
+  Future<void> signInWithOtp(String email) async {
+    // TODO: fake data
+    //return;
+
+    try {
+      await supabase.auth.signInWithOtp(
+        email: email,
+        emailRedirectTo: kIsWeb ? null : Constants.supabaseLoginCallback,
       );
     } on AuthException catch (error) {
       throw Exception(error.message);
@@ -50,16 +67,16 @@ class AuthenticationRepository {
   }) async {
     try {
       // TODO: fake data
-      return AuthResponse(
-        user: User(
-          id: '',
-          appMetadata: {},
-          userMetadata: {},
-          aud: '',
-          createdAt: '',
-          email: email,
-        ),
-      );
+      // return AuthResponse(
+      //   user: User(
+      //     id: '',
+      //     appMetadata: {},
+      //     userMetadata: {},
+      //     aud: '',
+      //     createdAt: '',
+      //     email: email,
+      //   ),
+      // );
 
       final result = await supabase.auth.verifyOTP(
         email: email,
@@ -74,55 +91,55 @@ class AuthenticationRepository {
     }
   }
 
-  Future<AuthResponse> signInWithGoogle() async {
-    // TODO: fake data
-    return AuthResponse(
-      user: User(
-        id: '',
-        appMetadata: {},
-        userMetadata: {},
-        aud: '',
-        createdAt: '',
-        email: 'henry@google.com',
-      ),
-    );
+  // Future<AuthResponse> signInWithGoogle() async {
+  //   // TODO: fake data
+  //   return AuthResponse(
+  //     user: User(
+  //       id: '',
+  //       appMetadata: {},
+  //       userMetadata: {},
+  //       aud: '',
+  //       createdAt: '',
+  //       email: 'henry@google.com',
+  //     ),
+  //   );
 
-    try {
-      const List<String> scopes = <String>[
-        Constants.googleEmailScope,
-        Constants.googleUserInfoScope,
-      ];
+  //   try {
+  //     const List<String> scopes = <String>[
+  //       Constants.googleEmailScope,
+  //       Constants.googleUserInfoScope,
+  //     ];
 
-      final GoogleSignIn googleSignIn = GoogleSignIn(
-        clientId: Env.googleClientId,
-        serverClientId: Env.googleServerClientId,
-        scopes: scopes,
-      );
-      final googleUser = await googleSignIn.signIn();
-      final googleAuth = await googleUser!.authentication;
-      final accessToken = googleAuth.accessToken;
-      final idToken = googleAuth.idToken;
+  //     final GoogleSignIn googleSignIn = GoogleSignIn(
+  //       clientId: Env.googleClientId,
+  //       serverClientId: Env.googleServerClientId,
+  //       scopes: scopes,
+  //     );
+  //     final googleUser = await googleSignIn.signIn();
+  //     final googleAuth = await googleUser!.authentication;
+  //     final accessToken = googleAuth.accessToken;
+  //     final idToken = googleAuth.idToken;
 
-      if (accessToken == null) {
-        throw Exception('access_token_not_found'.tr());
-      }
+  //     if (accessToken == null) {
+  //       throw Exception('access_token_not_found'.tr());
+  //     }
 
-      if (idToken == null) {
-        throw Exception('id_token_not_found'.tr());
-      }
+  //     if (idToken == null) {
+  //       throw Exception('id_token_not_found'.tr());
+  //     }
 
-      final result = await supabase.auth.signInWithIdToken(
-        provider: OAuthProvider.google,
-        idToken: idToken,
-        accessToken: accessToken,
-      );
-      return result;
-    } on AuthException catch (error) {
-      throw Exception(error.message);
-    } catch (error) {
-      throw Exception(Languages.unexpectedErrorOccurred);
-    }
-  }
+  //     final result = await supabase.auth.signInWithIdToken(
+  //       provider: OAuthProvider.google,
+  //       idToken: idToken,
+  //       accessToken: accessToken,
+  //     );
+  //     return result;
+  //   } on AuthException catch (error) {
+  //     throw Exception(error.message);
+  //   } catch (error) {
+  //     throw Exception(Languages.unexpectedErrorOccurred);
+  //   }
+  // }
 
   // Future<AuthResponse> signInWithApple() async {
   //   // TODO: fake data

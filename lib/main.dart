@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:purchases_flutter/purchases_flutter.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'src/v2/constants/constants.dart';
 import 'src/v2/environment/env.dart';
@@ -45,6 +46,11 @@ void main() async {
   //   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
   //   return true;
   // };
+  // await dotenv.load(fileName: ".env");
+  // print('Env.SUPABASE_URL: ${dotenv.env['SUPABASE_URL']}');
+  // print('Env.SUPABASE_ANON_KEY: ${dotenv.env['SUPABASE_ANON_KEY']}');
+  print('Env.SUPABASE_URL: ${Env.supabaseUrl}');
+  print('Env.SUPABASE_ANON_KEY: ${Env.supabaseAnonKey}');
 
   /// Supabase
   await Supabase.initialize(

@@ -7,7 +7,7 @@ part of 'authentication_view_model.dart';
 // **************************************************************************
 
 String _$authenticationViewModelHash() =>
-    r'e540d3a644552d5ccad3348cf836cb77500733c0';
+    r'cbd8b05ba0b1b1364c43452cc235cc3d6dc67c4d';
 
 /// See also [AuthenticationViewModel].
 @ProviderFor(AuthenticationViewModel)

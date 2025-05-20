@@ -13,9 +13,9 @@ class SocialSignIn extends StatelessWidget {
     // final isIOS = Platform.isIOS;
     return Row(
       children: [
-        Expanded(
-          child: SignInWithGoogle(),
-        ),
+        // Expanded(
+        //   child: SignInWithGoogle(),
+        // ),
         // if (isIOS) const SizedBox(width: 16),
         // if (isIOS)
         //   Expanded(

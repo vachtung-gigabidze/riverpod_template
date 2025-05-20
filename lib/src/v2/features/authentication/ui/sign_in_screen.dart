@@ -82,7 +82,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     onPressed: () {
                       ref
                           .read(authenticationViewModelProvider.notifier)
-                          .signInWithMagicLink(_emailController.text);
+                          .signInWithOtp(_emailController.text);
+                      // .signInWithMagicLink(_emailController.text);
                       context.push(
                         Routes.otp,
                         extra: {
@@ -94,8 +95,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   ),
                   const SizedBox(height: 16),
                   const HorizontalDivider(),
-                  const SizedBox(height: 16),
-                  const SocialSignIn(),
+                  // const SizedBox(height: 16),
+                  // const SocialSignIn(),
                   const SizedBox(height: 32),
                 ],
               ),

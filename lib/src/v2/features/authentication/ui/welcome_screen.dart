@@ -129,6 +129,7 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen> {
                 onPressed: () {
                   ref
                       .read(authenticationViewModelProvider.notifier)
+                      // .signInWithOtp(_emailController.text);
                       .signInWithMagicLink(_emailController.text);
                   context.push(
                     Routes.otp,
