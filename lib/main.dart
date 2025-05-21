@@ -77,7 +77,7 @@ void main() async {
     ProviderScope(
       observers: [AppObserver()],
       child: EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('vi')],
+        supportedLocales: const [Locale('en'), Locale('ru')],
         path: 'assets/translations',
         fallbackLocale: const Locale('en'),
         useOnlyLangCode: true,
