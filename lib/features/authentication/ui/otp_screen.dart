@@ -30,7 +30,7 @@ class OtpScreen extends ConsumerStatefulWidget {
 class _OtpScreenState extends ConsumerState<OtpScreen> {
   late final TextEditingController otpController;
   late Timer _timer;
-  int count = 60;
+  int count = 300;
   bool isEnableResendButton = false;
 
   @override
@@ -52,7 +52,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (count == 0) {
-          count = 60;
+          count = 300;
           isEnableResendButton = true;
           timer.cancel();
         } else {
@@ -133,7 +133,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                       ),
                     ],
                   ),
-                  count < 60
+                  count < 300
                       ? Padding(
                           padding: const EdgeInsets.only(top: 16, bottom: 32),
                           child: Text(

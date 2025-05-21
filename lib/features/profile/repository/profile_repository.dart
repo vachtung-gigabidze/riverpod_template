@@ -27,7 +27,7 @@ class ProfileRepository {
     if (profileStr == null) return null;
 
     final profile = Profile.fromJson(jsonDecode(profileStr));
-    return profile;
+    // return profile;
 
     final userId = supabase.auth.currentUser?.id;
     if (userId == null) return null;
@@ -55,17 +55,17 @@ class ProfileRepository {
     //   }
     // }
 
-    // return result.copyWith(
-    //   expiryDatePremium: expiryDatePremium,
-    //   isLifetimePremium: isLifetimePremium,
-    // );
+    return result.copyWith(
+      expiryDatePremium: expiryDatePremium,
+      isLifetimePremium: isLifetimePremium,
+    );
   }
 
   Future<void> update(Profile profile) async {
     // TODO: temporary save profile to local
     final prefs = await SharedPreferences.getInstance();
     prefs.setString(Constants.profileKey, jsonEncode(profile.toJson()));
-    return;
+    // return;
 
     final userId = profile.id;
     if (userId == null) return;

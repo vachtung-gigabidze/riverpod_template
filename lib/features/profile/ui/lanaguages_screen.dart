@@ -8,8 +8,9 @@ import '../model/language.dart';
 import 'widgets/language_item.dart';
 
 final languages = [
-  const Language(id: '0', name: 'English', code: 'en', flag: ''),
-  const Language(id: '1', name: 'Tiếng Việt', code: 'vi', flag: ''),
+  const Language(id: '0', name: 'Русский', code: 'ru', flag: ''),
+  const Language(id: '1', name: 'English', code: 'en', flag: ''),
+  const Language(id: '2', name: 'Tiếng Việt', code: 'vi', flag: ''),
 ];
 
 class LanguagesScreen extends ConsumerWidget {

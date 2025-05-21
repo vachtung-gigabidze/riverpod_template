@@ -125,6 +125,7 @@ class AuthenticationViewModel extends _$AuthenticationViewModel {
           name: name,
           avatar: avatar,
         );
+    ref.read(profileViewModelProvider.notifier).refreshProfile();
 
     state = AsyncData(
       AuthenticationState(
