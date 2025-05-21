@@ -1,14 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:purchases_flutter/purchases_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../constants/constants.dart';
-import '../model/profile.dart';
 import '/main.dart';
+import '../../../constants/constants.dart';
 import '../../../utils/utils.dart';
+import '../model/profile.dart';
 
 part 'profile_repository.g.dart';
 
@@ -75,15 +74,15 @@ class ProfileRepository {
           .update({
             if (profile.email != null) 'email': profile.email,
             if (profile.name != null) 'name': profile.name,
-            if (profile.job != null) 'job': profile.job,
-            if (profile.avatar != null) 'avatar': profile.avatar,
-            if (profile.diamond != null) 'diamond': profile.diamond,
-            if (profile.expiryDatePremium != null)
-              'expiry_date_premium':
-                  profile.expiryDatePremium?.toIso8601String(),
-            if (profile.isLifetimePremium != null)
-              'is_lifetime_premium': profile.isLifetimePremium,
-            'updated_at': DateTime.now().toIso8601String(),
+            // if (profile.job != null) 'job': profile.job,
+            // if (profile.avatar != null) 'avatar': profile.avatar,
+            // if (profile.diamond != null) 'diamond': profile.diamond,
+            // if (profile.expiryDatePremium != null)
+            //   'expiry_date_premium':
+            //       profile.expiryDatePremium?.toIso8601String(),
+            // if (profile.isLifetimePremium != null)
+            //   'is_lifetime_premium': profile.isLifetimePremium,
+            // 'updated_at': DateTime.now().toIso8601String(),
           })
           .eq('id', userId)
           .select();
