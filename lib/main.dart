@@ -8,15 +8,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:purchases_flutter/purchases_flutter.dart';
 // import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'src/v2/constants/constants.dart';
-import 'src/v2/environment/env.dart';
-import 'src/v2/extensions/build_context_extension.dart';
-import 'src/v2/features/common/ui/providers/app_theme_mode_provider.dart';
-import 'src/v2/features/common/ui/widgets/offline_container.dart';
-import 'src/v2/routing/router.dart';
-import 'src/v2/utils/provider_observer.dart';
+import 'constants/constants.dart';
+import 'environment/env.dart';
+import 'extensions/build_context_extension.dart';
+import 'features/common/ui/providers/app_theme_mode_provider.dart';
+import 'features/common/ui/widgets/offline_container.dart';
+import 'routing/router.dart';
+import 'utils/provider_observer.dart';
 
 Future<void> initPlatformState() async {
   try {
