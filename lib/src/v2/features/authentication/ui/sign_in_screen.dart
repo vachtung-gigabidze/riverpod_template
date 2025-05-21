@@ -82,8 +82,8 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                     onPressed: () {
                       ref
                           .read(authenticationViewModelProvider.notifier)
-                          .signInWithOtp(_emailController.text);
-                      // .signInWithMagicLink(_emailController.text);
+                          // .signInWithOtp(_emailController.text);
+                          .signInWithMagicLink(_emailController.text);
                       context.push(
                         Routes.otp,
                         extra: {

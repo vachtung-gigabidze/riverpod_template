@@ -1,6 +1,6 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-
+import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 import '../constants/database_constants.dart';
 
 class DatabaseHelper {
@@ -10,6 +10,7 @@ class DatabaseHelper {
   DatabaseHelper._init();
 
   Future<Database> get database async {
+    databaseFactoryOrNull = databaseFactoryFfiWeb;
     if (_database != null) return _database!;
     _database = await _initDB('app.db');
     return _database!;
